@@ -20,7 +20,9 @@ def fetch_poster(movie_id):
     if movie_id in poster_cache:
         return poster_cache[movie_id]
 
-    url = f"https://api.themoviedb.org/3/movie/{movie_id}?api_key=f3d269f30e79647a09114a69b142d4e0&language=en-US"
+    api_key = st.secrets["tmdb_api_key"]
+    url = f"https://api.themoviedb.org/3/movie/{movie_id}?api_key={api_key}&language=en-US"
+
     headers = {"User-Agent": "Mozilla/5.0"}
 
     try:
