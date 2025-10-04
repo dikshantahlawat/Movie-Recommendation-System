@@ -1,3 +1,26 @@
+import os
+import requests
+
+url = "https://my-movies-recommender.s3.eu-north-1.amazonaws.com/similarity.pkl"
+destination = "similarity.pkl"
+
+if not os.path.exists(destination):
+    print("Downloading similarity.pkl...")
+    response = requests.get(url)
+    with open(destination, "wb") as f:
+        f.write(response.content)
+    print("Download complete.")
+else:
+    print("similarity.pkl already present locally.")
+import streamlit as st
+import pickle
+
+@st.cache_data
+def load_similarity():
+    with open("similarity.pkl", "rb") as f:
+        return pickle.load(f)
+
+similarity = load_similarity()
 import streamlit as st
 import pickle
 import pandas as pd
